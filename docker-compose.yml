@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./java-app-1Maximus1
+    container_name: backend-container
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - app-network
+
+  frontend:
+    build: ./react-app-1Maximus1
+    container_name: frontend-container
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
